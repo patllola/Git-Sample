@@ -1,0 +1,190 @@
+-- Sandeep Reddy Patllola
+#to add user name and user email
+
+git config --global user.name "name"
+
+git config --global user.email "fgfh@email.com"
+
+#other commands
+git config --list
+
+#to view user name or email
+git config user.name/email
+
+#to check git status
+git status
+#shows following message when git is not initiated
+fatal: not a git repository (or any of the parent directories): .git
+
+
+#to initiate the git run below command
+git init
+#shows following message on initiating git successfully, and a hidden .git folder also created.
+Initialized empty Git repository in C:/Users/sruth/Desktop/Git Tutorial/.git/
+
+#to keep all the files in the staging area, --a means adding all the files to the staging area
+git add --a
+
+#to keep only required files in staging area
+git add filename.extension
+
+#to take snapshot of file run below command, -m means printing message 
+git commit -m "Initial commit" 
+
+#to check commit history run below command
+git log
+
+#to delete git repository folder run below command, it is linux command and it removes .git file which means its not a git repository any more
+rm -rf .git
+
+#to clone any github repositories
+git clone repository file
+example - git clone https://github.com/tensorflow/tensorflow.git mygit
+
+simple commands=== ls,cd,chmod, and press q to come out of excuetion
+
+#to generate a file use
+touch filename.extension
+ex: touch error.log
+
+#generate .gitignore file and write  the log file names inside .gitignore file to ignore the partcular file, to ignore all the .log files at once  write *.log
+to ignore directories  write dir name to .gitignore file
+ex:
+dir/    for all directories with name dir
+/dir/  for outside directories
+
+#to see the changes that made before commit and after adding files to staging area(i.e, after running git add  .) use below command
+git diff 
+
+diff is used to comparision between staging area and working area and
+diff --staged compares the previous commit and present staging area
+git diff --staged
+
+
+#to add the files to staging area and to commit the git at once, use below command====DIRECT COMMIT(only takes tracked files)
+git commit -a -m "Direct commit"
+
+#to remove a file from folder
+git rm filename.extention
+ex: git rm first.txt
+
+if we delete the file manually from file explorer then need to add the file to staging area, but
+this command not only deletes the file and also directly adds the file to staging area,,,,.. 
+
+tip--press tab to autocomplete file name after entering starting letters of the filename
+
+#to rename file we use move(mv) command, this command not only rename the file and also directly adds the file to staging area,,,,.. 
+git mv first.txt first_renamed.txt
+
+
+#to untrack the file grom git, use below command
+git rm --cached Myexcel.xlsx
+---it does not remove file, it will only untracks the files and caches them and automatically stages 
+
+git log -p
+git log -p -3
+git log --stat
+git log --pretty=oneline
+git log --pretty=short
+git log --pretty=full
+git log --since=2.days
+git log --since=2.months
+git log --since=3.years
+git log --pretty="%h --%ae"   (to use format refer git log document")
+
+#to amend some change to the existing  commit use below command
+git commit --amend
+
+#unstaging and unmodifying files---- undo changes
+git restore --staged file.extension  (#unstaging)
+git checkout -- filename.extension  (#unmodifying)
+
+git checkout -f     (#for the whole directory unmodifying and matching it to last commit)
+
+#working with Github
+1. to add working directory git  to github,, (to push)
+git remote add origin https://github.com/Sruthi-s2/DSMLLearning.git
+origin is the remote name for our git, we can also give other names 
+
+2. to check remote name
+git remote
+3. to see git remote links for push and pull
+git remote -v
+ 
+#giving permissions to the git repository in git hub
+1. to generate ssh key
+ssh-keygen -t rsa -b 4096 -C "sruthi.ganji29@gmail.com"
+ 2. to check ssh agent 
+eval "$(ssh-agent -s)"
+3. to add ssh to git
+ssh-add ~/.ssh/id_rsa
+4. now copy the rsa in the github
+tail ~/.ssh/id_rsa
+copy whole key and paste it in the deploy keys.
+5. to push the working tree in github
+git push -u origin master
+
+#to give alias name to the command
+git config --global alias.renameCommand actualCommand
+ex: git config --global alias.c commit
+git config --global alias.s status
+git config --global alias.unstage "restore --staged -- "
+git config --global alias.last "log -p -1"
+ 
+#to restore file 
+git restore file.extension
+
+#Branching in Git
+1. to create branch 
+git checkout -b brachname
+ex: git checkout -b develop
+2. to open branch( always keep the branch cleanly commit before switching to other branch)
+git checkout develop
+3.to see all the branches in the git repositority
+git branch
+
+#to merge the branch with another branch open the branch in which you want to add and run below command.
+git merge branchnametobemerged
+git merge develop
+
+#Merge Conflict
+1. you will get merge conflicts, 
+you can accept them in vs code with the help of CONFLICT RESOLUTION MARKERS(<<<............>>>), then add and commit 
+ git add . | command is also used reslove merge conflict
+
+#Branch management
+1. to see last commit of individual branch
+git branch -v
+it gives most recent commit details hash key
+2. to see already merged branches
+git branch --merged
+3. to see unmerged braches
+git branch --no-merged
+4.to delete branches
+git branch -d branchname
+(gives error if the branch is not yet merged)
+5.to delete the branch even if its not merged 
+git branch -D develop
+
+#Branching WorkFlow
+i) Long Running Branches-always running branches
+ii)Topic Branches-short lived branch
+
+=====Long Running Branches====
+
+*master--main code branch
+*develop- development branch
+*PU(proposed updating)- for better proposed updates
+
+=====Topic Branches====
+for topic wise changes--- if this branch worked properly then we will merge integrate, after that topic branch will be deleted
+
+#to push between branches
+git push origin barnchname
+#to push with renaming branch in remote
+git push origin branchname:Mybranchname
+
+whenever you are pushing in one branch , be in the same branch in git bash 
+
+#to delete remote branches
+git push -d origin branchname
